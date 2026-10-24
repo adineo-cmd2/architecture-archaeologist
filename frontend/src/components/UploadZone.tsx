@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { apiGet, apiPost, apiPostFile } from '../lib/apiClient';
+const BASE = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 
 interface TreeEntry {
   path: string;
@@ -91,7 +92,7 @@ export default function UploadZone() {
       const data = await apiPost(`/api/codebase/${codebaseId}/analyse`, {});
       setMessage(`Pattern: ${data.pattern}. Drift zones: ${(data.drift_zones ?? []).length}.`);
       if (typeof window !== 'undefined') {
-        window.location.href = `/report?id=${codebaseId}`;
+        window.location.href = `${BASE}/report?id=${codebaseId}`;
       }
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Analyse failed.');

@@ -5,6 +5,16 @@ export const BASE: string =
   (import.meta.env.PUBLIC_API_BASE as string | undefined) ??
   'http://localhost:8007';
 
+async function request(path: string, init: RequestInit = {}): Promise<Response> {
+  try {
+    return await fetch(`${BASE}${path}`, init);
+  } catch {
+    throw new Error(
+      `Backend not reachable at ${BASE}. Start the local backend (see the repo README) or set PUBLIC_API_BASE.`,
+    );
+  }
+}
+
 async function handle(res: Response): Promise<any> {
   if (!res.ok) {
     let detail = res.statusText;
@@ -20,12 +30,12 @@ async function handle(res: Response): Promise<any> {
 }
 
 export async function apiGet(path: string): Promise<any> {
-  const res = await fetch(`${BASE}${path}`);
+  const res = await request(`${BASE}${path}`);
   return handle(res);
 }
 
 export async function apiPost(path: string, body: unknown): Promise<any> {
-  const res = await fetch(`${BASE}${path}`, {
+  const res = await request(`${BASE}${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body),
@@ -36,7 +46,7 @@ export async function apiPost(path: string, body: unknown): Promise<any> {
 export async function apiPostFile(path: string, file: File): Promise<any> {
   const form = new FormData();
   form.append('file', file);
-  const res = await fetch(`${BASE}${path}`, {
+  const res = await request(`${BASE}${path}`, {
     method: 'POST',
     body: form,
   });
@@ -44,7 +54,7 @@ export async function apiPostFile(path: string, file: File): Promise<any> {
 }
 
 export async function apiDelete(path: string): Promise<any> {
-  const res = await fetch(`${BASE}${path}`, {
+  const res = await request(`${BASE}${path}`, {
     method: 'DELETE',
   });
   return handle(res);

@@ -1,27 +1,123 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+
+const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 ---
-<BaseLayout title="Architecture Archaeologist — dig up what the dev was thinking">
-<h1 class="text-3xl font-bold text-archgreen">Architecture Archaeologist</h1>
-<p class="mt-4 max-w-2xl text-sm">Feed it a ZIP or a GitHub URL. Get back the inferred architecture pattern, per-file drift scores, a what-was-the-dev-thinking report with a Mermaid diagram, a file explorer, and grounded Q&amp;A.</p>
-<div class="mt-6 flex flex-wrap gap-3 text-sm">
-  <a href="/ingest" class="bg-archgreen px-4 py-1 font-bold text-ink">Ingest code</a>
-  <a href="/report" class="border border-edge px-4 py-1">View report</a>
-  <a href="/ask" class="border border-edge px-4 py-1">Ask questions</a>
-</div>
-<div class="mt-8 border border-edge bg-panel p-4">
-  <h2 class="text-sm font-bold text-archgreen">Sample drift report</h2>
-  <ul class="mt-2 space-y-2 text-sm">
-    <li class="border border-red-700 bg-red-900/60 px-3 py-2">auth/views.py — 0.82 <span class="text-xs opacity-70">emergency fixes ×3; model→view import</span></li>
-    <li class="border border-archamber bg-archamber/20 px-3 py-2">billing/workaround_pay.py — 0.55 <span class="text-xs opacity-70">hotfix keyword; complexity 12</span></li>
-    <li class="border border-archgreen/50 bg-archgreen/10 px-3 py-2">core/models.py — 0.08 <span class="text-xs opacity-70">clean</span></li>
+<BaseLayout title="Architecture Archaeologist" description="Feed it a ZIP or a GitHub URL: inferred architecture pattern, per-file drift scores, a what-was-the-dev-thinking report with Mermaid diagram, file explorer and grounded Q&A.">
+<section class="hero">
+  <span class="hero-badge">dig up what the dev was thinking</span>
+  <h1 class="display-1">Dig up what the<br/><span class="grad-text">dev was thinking.</span></h1>
+  <p class="lead">Feed it a ZIP or a GitHub URL. Get back the inferred architecture pattern, per-file drift scores, a what-was-the-dev-thinking report with a Mermaid diagram, a file explorer, and grounded Q&A.</p>
+  <div class="hero-ctas">
+<a href={`${base}/ingest`} class="btn btn-accent btn-lg">Ingest code</a>
+<a href={`${base}/report`} class="btn btn-ghost btn-lg">Read a sample report</a>
+  </div>
+  <div class="hero-meta">
+<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></svg>Pattern inference</span>
+<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Per-file drift scores</span>
+<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Grounded Q&A</span>
+  </div>
+</section>
+
+<section class="section">
+  <div class="grid-3">
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Ingest anything</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">A ZIP upload or a GitHub URL — consent required, your code stays yours.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Pattern inference</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Layered? Hexagonal? Event-driven? The census guesses, with evidence.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Drift heatmap</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Per-file drift scores — where the code stopped matching the architecture.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M7.5 8 10 15M16.5 8 14 15M8 6h8"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Mermaid diagrams</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">The inferred structure, drawn as a diagram you can read.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">File explorer</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Walk the codebase with drift context attached to every file.</p>
+</article>
+<article class="card card-hover p-5 reveal">
+  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Grounded Q&A</h3>
+  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Ask the codebase questions; answers cite the files they came from.</p>
+</article>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="section-head">
+    <p class="eyebrow">Showcase</p>
+    <h2 class="section-title">A drift report</h2>
+    <p class="lead">Drift = 0.4×emergency_rate + 0.35×complexity/20 + 0.25×violations. Pattern guess: layered.</p>
+  </div>
+
+<div class="card p-5" style="max-width: 46rem; margin: 0 auto">
+  <ul class="space-y-2 text-sm">
+    <li class="rounded-lg border px-3 py-2" style="border-color:#7f1d1d; background:rgba(127,29,29,0.25)">
+      <span class="mono">auth/views.py</span> — <span style="color:#f87171">0.82</span>
+      <span class="ml-2 text-xs" style="color: var(--ink-soft)">emergency fixes ×3; model→view import</span>
+    </li>
+    <li class="rounded-lg border px-3 py-2" style="border-color:#92600a; background:rgba(245,158,11,0.12)">
+      <span class="mono">billing/workaround_pay.py</span> — <span style="color:#f59e0b">0.55</span>
+      <span class="ml-2 text-xs" style="color: var(--ink-soft)">hotfix keyword; complexity 12</span>
+    </li>
+    <li class="rounded-lg border px-3 py-2" style="border-color:#166534; background:rgba(74,222,128,0.08)">
+      <span class="mono">core/models.py</span> — <span style="color:#4ade80">0.08</span>
+      <span class="ml-2 text-xs" style="color: var(--ink-soft)">clean</span>
+    </li>
   </ul>
-  <p class="mt-2 text-xs text-inksoft">Drift = 0.4×emergency_rate + 0.35×complexity/20 + 0.25×violations. Pattern guess: layered.</p>
 </div>
-<h2 class="mt-8 text-lg font-bold">How it works</h2>
-<ol class="mt-2 list-decimal space-y-1 pl-6 text-sm text-zinc-300">
-  <li>Upload a zip or paste a repo URL (consent required).</li>
-  <li>Run Analyse — static AST census, git scan, pattern inference.</li>
-  <li>Read the report, explore drift, ask grounded questions.</li>
-</ol>
+
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <p class="eyebrow">How it works</p>
+    <h2 class="section-title">Three steps, no fluff</h2>
+  </div>
+  <div class="grid-3">
+<div class="step reveal">
+  <div class="step-num">01</div>
+  <h3 class="mt-2 text-[1rem] font-semibold">Upload or link</h3>
+  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">A zip, or a repo URL — consent required.</p>
+</div>
+<div class="step reveal">
+  <div class="step-num">02</div>
+  <h3 class="mt-2 text-[1rem] font-semibold">Run the analysis</h3>
+  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Static AST census, git scan, pattern inference.</p>
+</div>
+<div class="step reveal">
+  <div class="step-num">03</div>
+  <h3 class="mt-2 text-[1rem] font-semibold">Read & ask</h3>
+  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Report, drift explorer, and grounded questions.</p>
+</div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="note-band">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    <p>⚠ Only upload code you own or are authorised to share. Drift scores are heuristic estimates, not ground truth.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="cta-band reveal">
+    <h2 class="section-title">Every codebase has strata.</h2>
+    <p class="lead" style="margin: 0.8rem auto 1.8rem">Ingest one and read the layers.</p>
+    <a href={`${base}/ingest`} class="btn btn-accent btn-lg">Ingest code</a>
+  </div>
+</section>
+
 </BaseLayout>
