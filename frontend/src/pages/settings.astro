@@ -1,0 +1,46 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Settings — Architecture Archaeologist">
+<h1 class="mb-4 text-2xl font-bold">Settings</h1>
+<div class="border border-edge bg-panel p-4">
+  <h2 class="text-sm font-bold text-archgreen">Codebases</h2>
+  <ul id="list" class="mt-2 space-y-2 text-sm"></ul>
+  <p id="err" class="mt-2 text-sm text-archamber"></p>
+</div>
+<script>
+  import { apiGet, apiDelete } from '../lib/apiClient';
+  async function load() {
+    const list = document.getElementById("list")!;
+    const err = document.getElementById("err")!;
+    list.innerHTML = "<li>Loading…</li>";
+    try {
+      const items = await apiGet("/api/codebase");
+      list.innerHTML = "";
+      if (items.length === 0) list.innerHTML = "<li>No codebases yet.</li>";
+      for (const c of items) {
+        const li = document.createElement("li");
+        li.className = "flex items-center justify-between gap-3 border border-edge bg-ink px-3 py-2";
+        const span = document.createElement("span");
+        span.textContent = `#${c.id} ${c.name} (${c.source}, ${c.files} files)`;
+        const del = document.createElement("button");
+        del.textContent = "Delete";
+        del.className = "border border-archamber px-2 py-0.5 text-archamber";
+        del.onclick = async () => {
+          try {
+            await apiDelete(`/api/codebase/${c.id}`);
+            await load();
+          } catch (e) {
+            err.textContent = e instanceof Error ? e.message : "Delete failed.";
+          }
+        };
+        li.append(span, del);
+        list.appendChild(li);
+      }
+    } catch (e) {
+      err.textContent = e instanceof Error ? e.message : "Load failed.";
+    }
+  }
+  load();
+</script>
+</BaseLayout>

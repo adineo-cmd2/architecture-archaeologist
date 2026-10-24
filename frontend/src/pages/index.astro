@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Architecture Archaeologist — dig up what the dev was thinking">
+<h1 class="text-3xl font-bold text-archgreen">Architecture Archaeologist</h1>
+<p class="mt-4 max-w-2xl text-sm">Feed it a ZIP or a GitHub URL. Get back the inferred architecture pattern, per-file drift scores, a what-was-the-dev-thinking report with a Mermaid diagram, a file explorer, and grounded Q&amp;A.</p>
+<div class="mt-6 flex flex-wrap gap-3 text-sm">
+  <a href="/ingest" class="bg-archgreen px-4 py-1 font-bold text-ink">Ingest code</a>
+  <a href="/report" class="border border-edge px-4 py-1">View report</a>
+  <a href="/ask" class="border border-edge px-4 py-1">Ask questions</a>
+</div>
+<div class="mt-8 border border-edge bg-panel p-4">
+  <h2 class="text-sm font-bold text-archgreen">Sample drift report</h2>
+  <ul class="mt-2 space-y-2 text-sm">
+    <li class="border border-red-700 bg-red-900/60 px-3 py-2">auth/views.py — 0.82 <span class="text-xs opacity-70">emergency fixes ×3; model→view import</span></li>
+    <li class="border border-archamber bg-archamber/20 px-3 py-2">billing/workaround_pay.py — 0.55 <span class="text-xs opacity-70">hotfix keyword; complexity 12</span></li>
+    <li class="border border-archgreen/50 bg-archgreen/10 px-3 py-2">core/models.py — 0.08 <span class="text-xs opacity-70">clean</span></li>
+  </ul>
+  <p class="mt-2 text-xs text-inksoft">Drift = 0.4×emergency_rate + 0.35×complexity/20 + 0.25×violations. Pattern guess: layered.</p>
+</div>
+<h2 class="mt-8 text-lg font-bold">How it works</h2>
+<ol class="mt-2 list-decimal space-y-1 pl-6 text-sm text-zinc-300">
+  <li>Upload a zip or paste a repo URL (consent required).</li>
+  <li>Run Analyse — static AST census, git scan, pattern inference.</li>
+  <li>Read the report, explore drift, ask grounded questions.</li>
+</ol>
+</BaseLayout>
