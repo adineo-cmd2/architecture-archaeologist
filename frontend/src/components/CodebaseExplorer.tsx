@@ -46,51 +46,76 @@ export default function CodebaseExplorer() {
   }
 
   return (
-    <div>
-      <div className="flex gap-2">
-        <input
-          value={codebaseId}
-          onChange={(e) => setCodebaseId(e.target.value)}
-          placeholder="codebase id"
-          className="w-32 border border-edge bg-ink p-1 text-sm"
-        />
+    <div className="sheet-panel">
+      <div className="sheet-panel-head">
+        <span className="panel-code">Sheet A-04 — Explorer</span>
+        <span>File tree · source preview · drift context</span>
+      </div>
+
+      <div className="workspace-bar">
+        <label className="field field-id">
+          <span className="label-x">Codebase id</span>
+          <input
+            value={codebaseId}
+            onChange={(e) => setCodebaseId(e.target.value)}
+            placeholder="codebase id"
+            className="input"
+          />
+        </label>
         <button
+          type="button"
           onClick={() => codebaseId && void loadTree(codebaseId)}
-          className="bg-archgreen px-3 py-1 text-sm font-bold text-ink"
+          className="btn btn-accent"
         >
           Load
         </button>
       </div>
-      {error && <p className="mt-2 text-sm text-archamber">{error}</p>}
-      <div className="mt-4 grid gap-4 md:grid-cols-2">
-        <div className="border border-edge bg-panel p-3">
-          <h2 className="text-sm font-bold text-archgreen">Tree ({tree.length})</h2>
-          <ul className="mt-2 max-h-96 overflow-auto text-xs">
-            {tree.map((p) => (
-              <li key={p}>
-                <button
-                  onClick={() => void openFile(p)}
-                  className={`text-left hover:text-archgreen ${selected === p ? 'text-archgreen' : 'text-zinc-300'}`}
-                >
-                  {p}
-                </button>
-              </li>
-            ))}
-          </ul>
+
+      {error && <div className="workspace-alert"><p className="form-note error">{error}</p></div>}
+
+      <div className="workspace-grid">
+        <div className="data-panel">
+          <div className="panel-head">
+            <h2>Tree ({tree.length})</h2>
+            <span>Select a file</span>
+          </div>
+          <div className="panel-body">
+            {tree.length === 0 && <p className="register-empty">No files loaded yet.</p>}
+            <ul className="tree-list">
+              {tree.map((p) => (
+                <li key={p}>
+                  <button
+                    type="button"
+                    onClick={() => void openFile(p)}
+                    className={`tree-item ${selected === p ? 'is-active' : ''}`}
+                  >
+                    {p}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <div className="border border-edge bg-panel p-3">
-          <h2 className="text-sm font-bold text-archgreen">File</h2>
-          {selected && (
-            <p className="mt-1 text-xs text-inksoft">
-              {selected} · {language}
-              {drift != null && (
-                <span className={`ml-2 border px-1 ${drift >= 0.4 ? 'border-archamber text-archamber' : 'border-archgreen text-archgreen'}`}>
-                  drift {drift.toFixed(2)}
-                </span>
-              )}
-            </p>
-          )}
-          <pre className="mt-2 max-h-96 overflow-auto bg-ink p-2 text-xs">{content || 'Select a file.'}</pre>
+
+        <div className="data-panel">
+          <div className="panel-head">
+            <h2>File</h2>
+            <span>{language || 'Preview'}</span>
+          </div>
+          <div className="panel-body">
+            {selected && (
+              <div className="file-meta">
+                <span>{selected}</span>
+                {language && <span>· {language}</span>}
+                {drift != null && (
+                  <span className={`drift-badge ${drift < 0.4 ? 'low' : ''}`}>
+                    drift {drift.toFixed(2)}
+                  </span>
+                )}
+              </div>
+            )}
+            <pre className="code-block">{content || 'Select a file.'}</pre>
+          </div>
         </div>
       </div>
     </div>

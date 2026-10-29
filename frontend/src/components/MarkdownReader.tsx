@@ -1,27 +1,23 @@
 export default function MarkdownReader({ markdown }: { markdown: string }) {
-  if (!markdown) return <p className="text-sm text-inksoft">No report yet.</p>;
+  if (!markdown) return <p className="register-empty">No report yet.</p>;
   const blocks = markdown.split(/\n{2,}/);
   return (
-    <div className="space-y-3">
+    <div className="doc-block">
       {blocks.map((b, i) => {
         if (b.trimStart().startsWith('```')) {
           return (
-            <pre key={i} className="overflow-auto border border-edge bg-ink p-3 text-xs">
+            <pre key={i} className="code-block">
               {b.replace(/```/g, '')}
             </pre>
           );
         }
         if (b.trimStart().startsWith('#')) {
           return (
-            <h3 key={i} className="text-base font-bold text-archgreen">
-              {b.replace(/^#+\s*/, '')}
-            </h3>
+            <h3 key={i}>{b.replace(/^#+\s*/, '')}</h3>
           );
         }
         return (
-          <p key={i} className="whitespace-pre-wrap text-sm text-zinc-300">
-            {b}
-          </p>
+          <p key={i}>{b}</p>
         );
       })}
     </div>

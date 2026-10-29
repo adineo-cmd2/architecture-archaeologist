@@ -108,70 +108,101 @@ export default function UploadZone() {
   }, []);
 
   return (
-    <div className="space-y-4">
-      <div className="border border-edge bg-panel p-4">
-        <h2 className="text-sm font-bold text-archgreen">ZIP upload</h2>
-        <input
-          type="file"
-          accept=".zip"
-          onChange={(e) => setZipFile(e.target.files?.[0] ?? null)}
-          className="mt-2 w-full text-sm"
-        />
-        <button
-          onClick={handleZipUpload}
-          disabled={busy}
-          className="mt-2 bg-archgreen px-4 py-1 text-sm font-bold text-ink disabled:opacity-50"
-        >
-          Upload zip
-        </button>
+    <div className="sheet-panel">
+      <div className="sheet-panel-head">
+        <span className="panel-code">Sheet A-02 — Intake</span>
+        <span>Form AA-1 · Codebase · Rev 03</span>
       </div>
-      <div className="border border-edge bg-panel p-4">
-        <h2 className="text-sm font-bold text-archgreen">GitHub URL</h2>
-        <input
-          type="text"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="https://github.com/org/repo"
-          className="mt-2 w-full border border-edge bg-ink p-2 text-sm"
-        />
-        <button
-          onClick={handleUrlIngest}
-          disabled={busy}
-          className="mt-2 bg-archgreen px-4 py-1 text-sm font-bold text-ink disabled:opacity-50"
-        >
-          Ingest URL
-        </button>
+
+      <div className="intake-grid">
+        <section className="intake-cell">
+          <h2><span className="idx">01</span>ZIP upload</h2>
+          <p className="hint">A local archive. Parsed in place; nothing is executed.</p>
+          <div className="field">
+            <label className="label-x" htmlFor="zip-file">Codebase archive (.zip)</label>
+            <input
+              id="zip-file"
+              type="file"
+              accept=".zip"
+              onChange={(e) => setZipFile(e.target.files?.[0] ?? null)}
+            />
+          </div>
+          <button
+            type="button"
+            onClick={handleZipUpload}
+            disabled={busy}
+            className="btn btn-accent"
+          >
+            Upload zip
+          </button>
+        </section>
+
+        <section className="intake-cell">
+          <h2><span className="idx">02</span>GitHub URL</h2>
+          <p className="hint">A public repository. Cloned to the local backend for survey.</p>
+          <div className="field">
+            <label className="label-x" htmlFor="github-url">Repository address</label>
+            <input
+              id="github-url"
+              type="text"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="https://github.com/org/repo"
+              className="input"
+            />
+          </div>
+          <button
+            type="button"
+            onClick={handleUrlIngest}
+            disabled={busy}
+            className="btn btn-ghost"
+          >
+            Ingest URL
+          </button>
+        </section>
       </div>
-      <label className="flex items-start gap-2 border border-archamber/50 bg-panel p-3 text-sm">
+
+      <label className="consent-row">
         <input
           type="checkbox"
           checked={consent}
           onChange={(e) => setConsent(e.target.checked)}
         />
         <span>
-          I confirm I own this code or am authorised to share it, and it contains
-          no proprietary secrets I lack permission to upload. (Required)
+          <strong>Consent required.</strong> I confirm I own this code or am authorised to share it, and it contains
+          no proprietary secrets I lack permission to upload.
         </span>
       </label>
+
       {tree.length > 0 && (
-        <div className="border border-edge bg-panel p-4">
-          <h2 className="text-sm font-bold text-archgreen">Tree preview ({tree.length})</h2>
-          <ul className="mt-2 max-h-48 overflow-auto text-xs text-zinc-300">
+        <div className="tree-block">
+          <h2>Tree preview ({tree.length})</h2>
+          <ul className="file-tree">
             {tree.slice(0, 100).map((p) => (
               <li key={p}>{p}</li>
             ))}
           </ul>
         </div>
       )}
-      <button
-        onClick={handleAnalyse}
-        disabled={busy || codebaseId == null}
-        className="bg-archamber px-4 py-1 text-sm font-bold text-ink disabled:opacity-50"
-      >
-        Analyse
-      </button>
-      {message && <p className="text-sm text-archgreen">{message}</p>}
-      {error && <p className="text-sm text-archamber">{error}</p>}
+
+      <div className="intake-actions">
+        <button
+          type="button"
+          onClick={handleAnalyse}
+          disabled={busy || codebaseId == null}
+          className="btn btn-accent btn-lg"
+        >
+          Analyse
+        </button>
+        <p className="action-note">Output / report A-03 · drift · file explorer</p>
+      </div>
+
+      {(message || error) && (
+        <div className="intake-messages">
+          {message && <p className="form-note ok">{message}</p>}
+          {error && <p className="form-note error">{error}</p>}
+        </div>
+      )}
     </div>
   );
 }

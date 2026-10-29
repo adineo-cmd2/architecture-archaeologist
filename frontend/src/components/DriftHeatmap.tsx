@@ -4,26 +4,29 @@ export interface DriftEntry {
   reasons: string[];
 }
 
-function colorFor(score: number): string {
-  if (score >= 0.7) return 'bg-red-900/60 border-red-700';
-  if (score >= 0.4) return 'bg-archamber/20 border-archamber';
-  return 'bg-archgreen/10 border-archgreen/50';
+function levelFor(score: number): 'high' | 'mid' | 'low' {
+  if (score >= 0.7) return 'high';
+  if (score >= 0.4) return 'mid';
+  return 'low';
 }
 
 export default function DriftHeatmap({ drift }: { drift: DriftEntry[] }) {
   if (!drift || drift.length === 0) {
-    return <p className="text-sm text-inksoft">No drift data yet.</p>;
+    return <p className="register-empty">No drift data yet.</p>;
   }
   return (
-    <ul className="space-y-2">
+    <ul className="drift-list">
       {drift.map((d) => (
-        <li key={d.path} className={`border px-3 py-2 ${colorFor(d.score)}`}>
-          <div className="flex items-center justify-between gap-3">
-            <span className="text-sm">{d.path}</span>
-            <span className="text-sm font-bold">{d.score.toFixed(2)}</span>
+        <li key={d.path} className="drift-entry" data-level={levelFor(d.score)}>
+          <div className="drift-line">
+            <span className="drift-path">{d.path}</span>
+            <span className="drift-score mono-n">{d.score.toFixed(2)}</span>
+          </div>
+          <div className="drift-meter">
+            <span style={{ width: `${Math.max(2, Math.min(100, d.score * 100))}%` }} />
           </div>
           {d.reasons && d.reasons.length > 0 && (
-            <p className="mt-1 text-xs text-inksoft">{d.reasons.join('; ')}</p>
+            <p className="drift-reason">{d.reasons.join('; ')}</p>
           )}
         </li>
       ))}

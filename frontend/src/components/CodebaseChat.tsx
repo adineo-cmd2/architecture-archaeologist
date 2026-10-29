@@ -45,48 +45,72 @@ export default function CodebaseChat() {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex gap-2">
-        <input
-          value={codebaseId}
-          onChange={(e) => setCodebaseId(e.target.value)}
-          placeholder="codebase id"
-          className="w-32 border border-edge bg-ink p-2 text-sm"
-        />
-        <input
-          value={question}
-          onChange={(e) => setQuestion(e.target.value)}
-          placeholder="e.g. Where is auth handled?"
-          className="flex-1 border border-edge bg-ink p-2 text-sm"
-        />
+    <div className="sheet-panel">
+      <div className="sheet-panel-head">
+        <span className="panel-code">Sheet A-05 — Query</span>
+        <span>Grounded Q&amp;A · answers cite source</span>
+      </div>
+
+      <div className="query-grid">
+        <label className="field">
+          <span className="label-x">Codebase id</span>
+          <input
+            value={codebaseId}
+            onChange={(e) => setCodebaseId(e.target.value)}
+            placeholder="codebase id"
+            className="input"
+          />
+        </label>
+        <label className="field">
+          <span className="label-x">Question</span>
+          <input
+            value={question}
+            onChange={(e) => setQuestion(e.target.value)}
+            placeholder="e.g. Where is auth handled?"
+            className="input"
+          />
+        </label>
         <button
+          type="button"
           onClick={() => void ask()}
           disabled={busy}
-          className="bg-archgreen px-4 py-1 text-sm font-bold text-ink disabled:opacity-50"
+          className="btn btn-accent"
         >
           Ask
         </button>
       </div>
-      {error && <p className="text-sm text-archamber">{error}</p>}
-      {answer && (
-        <div className="border border-edge bg-panel p-4">
-          <h2 className="text-sm font-bold text-archgreen">Answer</h2>
-          <p className="mt-1 whitespace-pre-wrap text-sm">{answer}</p>
-        </div>
-      )}
-      {refs.length > 0 && (
-        <div className="border border-edge bg-panel p-4">
-          <h2 className="text-sm font-bold text-archgreen">References</h2>
-          <ul className="mt-2 space-y-2">
-            {refs.map((r, i) => (
-              <li key={`${r.path}-${i}`} className="border border-edge bg-ink p-2">
-                <p className="text-xs text-archgreen">{r.path}</p>
-                <pre className="mt-1 overflow-auto text-xs text-zinc-300">{r.snippet}</pre>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+
+      <div className="query-body">
+        {error && <p className="form-note error">{error}</p>}
+        {answer && (
+          <div className="data-panel">
+            <div className="panel-head"><h2>Answer</h2><span>Retrieved · grounded</span></div>
+            <div className="panel-body">
+              <p className="answer-text">{answer}</p>
+            </div>
+          </div>
+        )}
+        {refs.length > 0 && (
+          <div className="data-panel">
+            <div className="panel-head"><h2>References</h2><span>{refs.length} source{refs.length === 1 ? '' : 's'}</span></div>
+            <div className="panel-body">
+              <ul className="ref-list">
+                {refs.map((r, i) => (
+                  <li key={`${r.path}-${i}`} className="ref-item">
+                    <p className="ref-path">{r.path}</p>
+                    <pre className="ref-snippet">{r.snippet}</pre>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+        {!answer && !error && refs.length === 0 && (
+          <p className="register-empty">
+            Ask where something lives, why a module exists, or how two parts of the codebase talk to each other.
+          </p>
+        )}
+      </div>
     </div>
   );
 }

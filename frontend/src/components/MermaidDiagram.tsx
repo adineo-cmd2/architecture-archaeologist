@@ -13,7 +13,18 @@ export default function MermaidDiagram({ chart }: { chart: string }) {
         const mermaid = mod.default ?? mod;
         (mermaid as { initialize?: (o: unknown) => void }).initialize?.({
           startOnLoad: false,
-          theme: 'dark',
+          theme: 'base',
+          themeVariables: {
+            background: '#ffffff',
+            primaryColor: '#eaf0f5',
+            primaryTextColor: '#14314f',
+            primaryBorderColor: '#14314f',
+            lineColor: '#5b7185',
+            secondaryColor: '#f4f7fa',
+            tertiaryColor: '#ffffff',
+            fontFamily: "'IBM Plex Mono', monospace",
+            fontSize: '13px',
+          },
         });
         const render = (mermaid as { render?: (...a: unknown[]) => Promise<{ svg: string }> }).render;
         if (!render) throw new Error('no render');
@@ -29,14 +40,14 @@ export default function MermaidDiagram({ chart }: { chart: string }) {
     };
   }, [chart]);
 
-  if (!chart) return <p className="text-sm text-inksoft">No diagram yet.</p>;
+  if (!chart) return <p className="register-empty">No diagram yet.</p>;
   if (fallback) {
     return (
       <div>
-        <p className="mb-2 text-xs text-archamber">Diagram library unavailable — showing source.</p>
-        <pre className="overflow-auto border border-edge bg-ink p-3 text-xs">{chart}</pre>
+        <p className="form-note error">Diagram library unavailable — showing source.</p>
+        <pre className="code-block">{chart}</pre>
       </div>
     );
   }
-  return <div ref={ref} className="overflow-auto border border-edge bg-panel p-3" />;
+  return <div ref={ref} className="diagram-frame" />;
 }

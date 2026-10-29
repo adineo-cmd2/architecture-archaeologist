@@ -1,123 +1,482 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-
 const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
 ---
-<BaseLayout title="Architecture Archaeologist" description="Feed it a ZIP or a GitHub URL: inferred architecture pattern, per-file drift scores, a what-was-the-dev-thinking report with Mermaid diagram, file explorer and grounded Q&A.">
-<section class="hero">
-  <span class="hero-badge">dig up what the dev was thinking</span>
-  <h1 class="display-1">Dig up what the<br/><span class="grad-text">dev was thinking.</span></h1>
-  <p class="lead">Feed it a ZIP or a GitHub URL. Get back the inferred architecture pattern, per-file drift scores, a what-was-the-dev-thinking report with a Mermaid diagram, a file explorer, and grounded Q&A.</p>
-  <div class="hero-ctas">
-<a href={`${base}/ingest`} class="btn btn-accent btn-lg">Ingest code</a>
-<a href={`${base}/report`} class="btn btn-ghost btn-lg">Read a sample report</a>
-  </div>
-  <div class="hero-meta">
-<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></svg>Pattern inference</span>
-<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Per-file drift scores</span>
-<span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Grounded Q&A</span>
-  </div>
-</section>
+<BaseLayout
+  title="Architecture Archaeologist"
+  description="Feed it a ZIP or a GitHub URL: inferred architecture pattern, per-file drift scores, a what-was-the-dev-thinking report with Mermaid diagram, file explorer and grounded Q&A."
+>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="hero-badge">Architecture Archaeologist · Survey set A</p>
+      <h1 class="display-1">Dig up what the<br />dev was <span class="grad-text">thinking.</span></h1>
+      <p class="lead">
+        Feed it a ZIP or a GitHub URL. It reads the file tree and the commit history, maps the layers it finds,
+        scores where the code has drifted from the plan, and writes a report you can question. Every claim keeps
+        its receipts.
+      </p>
+      <div class="hero-ctas">
+        <a href={`${base}/ingest`} class="btn btn-accent btn-lg">Ingest code</a>
+        <a href={`${base}/report`} class="btn btn-ghost btn-lg">Read a sample report</a>
+      </div>
+      <dl class="hero-specs">
+        <div><dt>Input</dt><dd>ZIP · GitHub URL</dd></div>
+        <div><dt>Survey</dt><dd>AST census · git history</dd></div>
+        <div><dt>Output</dt><dd>Pattern · drift · Q&amp;A</dd></div>
+      </dl>
+    </div>
 
-<section class="section">
-  <div class="grid-3">
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5M12 3v12"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Ingest anything</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">A ZIP upload or a GitHub URL — consent required, your code stays yours.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 17l9 5 9-5"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Pattern inference</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Layered? Hexagonal? Event-driven? The census guesses, with evidence.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Drift heatmap</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Per-file drift scores — where the code stopped matching the architecture.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="6" r="3"/><circle cx="19" cy="6" r="3"/><circle cx="12" cy="18" r="3"/><path d="M7.5 8 10 15M16.5 8 14 15M8 6h8"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Mermaid diagrams</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">The inferred structure, drawn as a diagram you can read.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">File explorer</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Walk the codebase with drift context attached to every file.</p>
-</article>
-<article class="card card-hover p-5 reveal">
-  <div class="card-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-  <h3 class="text-[1.02rem] font-semibold" style="letter-spacing:-0.01em">Grounded Q&A</h3>
-  <p class="mt-2 text-sm leading-relaxed" style="color: var(--ink-soft)">Ask the codebase questions; answers cite the files they came from.</p>
-</article>
-  </div>
-</section>
+    <figure class="hero-drawing">
+      <div class="drawing-topline">
+        <span>Fig. 01 · Section A–A</span>
+        <span class="rev-tag">Rev 03</span>
+      </div>
+      <div class="drawing-canvas">
+        <svg
+          viewBox="0 0 680 640"
+          role="img"
+          aria-labelledby="section-svg-title section-svg-desc"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title id="section-svg-title">Section through a typical codebase</title>
+          <desc id="section-svg-desc">
+            A four-storey building section used as a drawing of a codebase: entry routes at grade, domain on level
+            one, services on level two and the API on level three. Three survey callouts mark the entry point, a
+            hidden coupling and a load-bearing module.
+          </desc>
+          <defs>
+            <pattern id="aa-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="7" stroke="#14314f" stroke-width="0.7" opacity="0.38" />
+            </pattern>
+            <pattern id="aa-earth" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="9" stroke="#5b7185" stroke-width="0.6" opacity="0.45" />
+            </pattern>
+          </defs>
+          <style>
+            .s-line { stroke: #14314f; fill: none; }
+            .s-thin { stroke: #5b7185; fill: none; stroke-width: 0.8; }
+            .s-cut { fill: url(#aa-hatch); stroke: #14314f; stroke-width: 1.05; }
+            .s-slab { fill: url(#aa-hatch); stroke: #14314f; stroke-width: 1; }
+            .s-soft { fill: #eaf0f5; stroke: #14314f; stroke-width: 0.8; }
+            .s-furn { stroke: #5b7185; fill: none; stroke-width: 0.75; }
+            .s-anno { font-family: 'IBM Plex Mono', monospace; fill: #5b7185; font-size: 9px; letter-spacing: 0.02em; }
+            .s-tiny { font-size: 7.6px; }
+            .s-room { font-family: 'IBM Plex Mono', monospace; fill: #5b7185; font-size: 9px; letter-spacing: 0.08em; }
+            .s-level { font-family: 'IBM Plex Mono', monospace; fill: #14314f; font-size: 9px; letter-spacing: 0.04em; }
+            .s-dim { font-family: 'IBM Plex Mono', monospace; fill: #5b7185; font-size: 8.5px; letter-spacing: 0.03em; }
+            .s-call { font-family: 'IBM Plex Mono', monospace; fill: #14314f; font-size: 12px; letter-spacing: 0.02em; }
+            .s-call-note { font-family: 'IBM Plex Mono', monospace; fill: #5b7185; font-size: 9.2px; letter-spacing: 0.01em; }
+            .s-orange { stroke: #c2410c; fill: none; }
+          </style>
 
-<section class="section reveal">
-  <div class="section-head">
-    <p class="eyebrow">Showcase</p>
-    <h2 class="section-title">A drift report</h2>
-    <p class="lead">Drift = 0.4×emergency_rate + 0.35×complexity/20 + 0.25×violations. Pattern guess: layered.</p>
-  </div>
+          <!-- ground and foundation -->
+          <rect x="124" y="532" width="374" height="20" fill="url(#aa-earth)" opacity="0.55" />
+          <line x1="112" y1="530" x2="516" y2="530" class="s-line" stroke-width="1.2" />
+          <rect x="151" y="518" width="38" height="28" class="s-cut" />
+          <rect x="446" y="518" width="38" height="28" class="s-cut" />
 
-<div class="card p-5" style="max-width: 46rem; margin: 0 auto">
-  <ul class="space-y-2 text-sm">
-    <li class="rounded-lg border px-3 py-2" style="border-color:#7f1d1d; background:rgba(127,29,29,0.25)">
-      <span class="mono">auth/views.py</span> — <span style="color:#f87171">0.82</span>
-      <span class="ml-2 text-xs" style="color: var(--ink-soft)">emergency fixes ×3; model→view import</span>
-    </li>
-    <li class="rounded-lg border px-3 py-2" style="border-color:#92600a; background:rgba(245,158,11,0.12)">
-      <span class="mono">billing/workaround_pay.py</span> — <span style="color:#f59e0b">0.55</span>
-      <span class="ml-2 text-xs" style="color: var(--ink-soft)">hotfix keyword; complexity 12</span>
-    </li>
-    <li class="rounded-lg border px-3 py-2" style="border-color:#166534; background:rgba(74,222,128,0.08)">
-      <span class="mono">core/models.py</span> — <span style="color:#4ade80">0.08</span>
-      <span class="ml-2 text-xs" style="color: var(--ink-soft)">clean</span>
-    </li>
-  </ul>
-</div>
+          <!-- roof plant -->
+          <rect x="300" y="76" width="86" height="36" class="s-soft" />
+          <line x1="343" y1="76" x2="343" y2="112" class="s-thin" />
+          <circle cx="322" cy="94" r="9" class="s-thin" />
+          <circle cx="365" cy="94" r="9" class="s-thin" />
+          <path d="M315 94h14M358 94h14" class="s-thin" />
+          <line x1="420" y1="88" x2="420" y2="112" class="s-thin" />
+          <line x1="413" y1="88" x2="427" y2="88" class="s-thin" />
+          <text x="300" y="70" class="s-anno s-tiny">ROOF PLANT / CACHE</text>
 
-</section>
+          <!-- shell walls and roof -->
+          <rect x="165" y="112" width="14" height="418" class="s-cut" />
+          <rect x="456" y="112" width="14" height="356" class="s-cut" />
+          <rect x="456" y="512" width="14" height="18" class="s-cut" />
+          <rect x="165" y="100" width="16" height="12" class="s-cut" />
+          <rect x="454" y="100" width="16" height="12" class="s-cut" />
+          <line x1="165" y1="100" x2="470" y2="100" class="s-line" stroke-width="1.2" />
 
-<section class="section">
-  <div class="section-head">
-    <p class="eyebrow">How it works</p>
-    <h2 class="section-title">Three steps, no fluff</h2>
-  </div>
-  <div class="grid-3">
-<div class="step reveal">
-  <div class="step-num">01</div>
-  <h3 class="mt-2 text-[1rem] font-semibold">Upload or link</h3>
-  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">A zip, or a repo URL — consent required.</p>
-</div>
-<div class="step reveal">
-  <div class="step-num">02</div>
-  <h3 class="mt-2 text-[1rem] font-semibold">Run the analysis</h3>
-  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Static AST census, git scan, pattern inference.</p>
-</div>
-<div class="step reveal">
-  <div class="step-num">03</div>
-  <h3 class="mt-2 text-[1rem] font-semibold">Read & ask</h3>
-  <p class="mt-1.5 text-sm leading-relaxed" style="color: var(--ink-soft)">Report, drift explorer, and grounded questions.</p>
-</div>
-  </div>
-</section>
+          <!-- floor plates -->
+          <rect x="153" y="518" width="334" height="12" class="s-slab" />
+          <rect x="165" y="420" width="305" height="10" class="s-slab" />
+          <rect x="165" y="320" width="305" height="10" class="s-slab" />
+          <rect x="165" y="220" width="305" height="10" class="s-slab" />
+          <rect x="165" y="112" width="305" height="10" class="s-slab" />
 
-<section class="section reveal">
-  <div class="note-band">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-    <p>⚠ Only upload code you own or are authorised to share. Drift scores are heuristic estimates, not ground truth.</p>
-  </div>
-</section>
+          <!-- stair + lift core -->
+          <rect x="218" y="122" width="8" height="396" class="s-cut" />
+          <rect x="258" y="122" width="4" height="396" class="s-cut" />
+          <rect x="226" y="122" width="32" height="396" fill="#f8fafc" stroke="#14314f" stroke-width="0.8" />
+          <path d="M226 220 258 128M258 220 226 128M226 320 258 230M258 320 226 230M226 420 258 330M258 420 226 330M226 518 258 430M258 518 226 430" class="s-thin" />
+          <text x="246" y="492" transform="rotate(-90 246 492)" class="s-anno s-tiny" text-anchor="middle">LIFT</text>
 
-<section class="section">
-  <div class="cta-band reveal">
-    <h2 class="section-title">Every codebase has strata.</h2>
-    <p class="lead" style="margin: 0.8rem auto 1.8rem">Ingest one and read the layers.</p>
-    <a href={`${base}/ingest`} class="btn btn-accent btn-lg">Ingest code</a>
-  </div>
-</section>
+          <path d="M182 512h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10" class="s-thin" />
+          <path d="M182 414h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10" class="s-thin" />
+          <path d="M182 314h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10" class="s-thin" />
+          <path d="M182 214h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10h4v-10" class="s-thin" />
+          <path d="M181 514 216 431M181 414 216 331M181 314 216 231M181 214 216 131" class="s-thin" opacity="0.65" />
 
+          <!-- partitions and doors -->
+          <rect x="360" y="430" width="6" height="40" class="s-soft" />
+          <rect x="360" y="498" width="6" height="20" class="s-soft" />
+          <path d="M360 470v24M360 494a24 24 0 0 1 24-24" class="s-thin" />
+
+          <rect x="360" y="330" width="6" height="32" class="s-soft" />
+          <rect x="360" y="390" width="6" height="30" class="s-soft" />
+          <path d="M366 362v28M366 390a24 24 0 0 0-24-28" class="s-thin" />
+
+          <rect x="360" y="230" width="6" height="28" class="s-soft" />
+          <rect x="360" y="286" width="6" height="34" class="s-soft" />
+          <path d="M360 258v28M360 286a24 24 0 0 1 24-28" class="s-thin" />
+
+          <rect x="360" y="122" width="6" height="34" class="s-soft" />
+          <rect x="360" y="184" width="6" height="36" class="s-soft" />
+          <path d="M366 156v28M366 184a24 24 0 0 0-24-28" class="s-thin" />
+
+          <!-- room furniture: ground -->
+          <rect x="274" y="480" width="46" height="5" class="s-furn" />
+          <path d="M278 485v11M316 485v11" class="s-furn" />
+          <rect x="289" y="466" width="12" height="8" class="s-furn" />
+          <rect x="329" y="460" width="10" height="52" class="s-furn" />
+          <path d="M329 472h10M329 484h10M329 496h10" class="s-furn" />
+          <rect x="386" y="486" width="34" height="5" class="s-furn" />
+          <path d="M390 491v10M416 491v10" class="s-furn" />
+          <circle cx="437" cy="474" r="3" class="s-furn" />
+          <path d="M437 477v9l-4 7M437 486l4 7" class="s-furn" />
+
+          <!-- room furniture: level 1 -->
+          <rect x="270" y="362" width="18" height="47" class="s-furn" />
+          <path d="M270 374h18M270 386h18M270 398h18" class="s-furn" />
+          <rect x="310" y="396" width="34" height="5" class="s-furn" />
+          <path d="M314 401v10M340 401v10" class="s-furn" />
+          <rect x="399" y="362" width="20" height="45" class="s-furn" />
+          <path d="M399 374h20M399 386h20M399 398h20" class="s-furn" />
+          <rect x="427" y="362" width="20" height="45" class="s-furn" />
+          <path d="M427 374h20M427 386h20M427 398h20" class="s-furn" />
+
+          <!-- room furniture: level 2 -->
+          <rect x="274" y="288" width="36" height="5" class="s-furn" />
+          <path d="M278 293v10M306 293v10" class="s-furn" />
+          <rect x="316" y="270" width="34" height="5" class="s-furn" />
+          <path d="M320 275v10M346 275v10" class="s-furn" />
+          <rect x="383" y="292" width="52" height="5" class="s-furn" />
+          <path d="M389 297v10M430 297v10" class="s-furn" />
+          <circle cx="407" cy="280" r="3" class="s-furn" />
+          <path d="M407 283v8l-4 6M407 291l4 6" class="s-furn" />
+
+          <!-- room furniture: level 3 -->
+          <rect x="270" y="148" width="34" height="20" class="s-furn" />
+          <path d="M274 154h26M274 160h18" class="s-furn" />
+          <rect x="274" y="198" width="32" height="5" class="s-furn" />
+          <path d="M278 203v9M302 203v9" class="s-furn" />
+          <rect x="381" y="196" width="34" height="5" class="s-furn" />
+          <path d="M385 201v9M411 201v9" class="s-furn" />
+          <rect x="428" y="180" width="12" height="24" class="s-furn" />
+          <path d="M428 188h12M428 196h12" class="s-furn" />
+
+          <!-- room labels -->
+          <text x="270" y="448" class="s-room">ROUTES</text>
+          <text x="372" y="448" class="s-room">MIDDLEWARE</text>
+          <text x="270" y="348" class="s-room">DOMAIN</text>
+          <text x="372" y="348" class="s-room">AUTH</text>
+          <text x="270" y="248" class="s-room">BILLING</text>
+          <text x="372" y="248" class="s-room">REPORTS</text>
+          <text x="270" y="140" class="s-room">SERVICES</text>
+          <text x="372" y="140" class="s-room">WORKERS</text>
+
+          <!-- hidden coupling -->
+          <path d="M300 290 430 365" stroke="#c2410c" stroke-width="1.3" fill="none" stroke-dasharray="5 4" />
+          <circle cx="300" cy="290" r="2.6" fill="#c2410c" />
+          <circle cx="430" cy="365" r="2.6" fill="#c2410c" />
+          <text x="336" y="312" class="s-anno s-tiny" style="fill: #c2410c">×3</text>
+
+          <!-- entry canopy and steps -->
+          <line x1="470" y1="462" x2="524" y2="462" class="s-line" stroke-width="2" />
+          <line x1="520" y1="462" x2="520" y2="530" class="s-line" stroke-width="1.4" />
+          <path d="M470 512 492 492M470 512a22 22 0 0 1 22-20" class="s-thin" />
+          <path d="M524 530v-6h6v-6h6v-6h6v-6" class="s-thin" />
+          <text x="480" y="548" class="s-anno s-tiny">ENTRY STEPS</text>
+
+          <!-- level markers and left dimension -->
+          <line x1="160" y1="112" x2="165" y2="112" class="s-line" />
+          <line x1="160" y1="220" x2="165" y2="220" class="s-line" />
+          <line x1="160" y1="320" x2="165" y2="320" class="s-line" />
+          <line x1="160" y1="420" x2="165" y2="420" class="s-line" />
+          <line x1="160" y1="518" x2="165" y2="518" class="s-line" />
+          <text x="158" y="108" text-anchor="end" class="s-level svg-small">ROOF · PLATFORM</text>
+          <text x="158" y="216" text-anchor="end" class="s-level svg-small">L3 · API</text>
+          <text x="158" y="316" text-anchor="end" class="s-level svg-small">L2 · SERVICE</text>
+          <text x="158" y="416" text-anchor="end" class="s-level svg-small">L1 · DOMAIN</text>
+          <text x="158" y="514" text-anchor="end" class="s-level svg-small">G · ENTRY</text>
+
+          <line x1="104" y1="112" x2="104" y2="530" class="s-thin" />
+          <path d="M99 108 109 116M99 216 109 224M99 316 109 324M99 416 109 424M99 514 109 522M99 526 109 534" class="s-thin" />
+          <line x1="104" y1="112" x2="165" y2="112" class="s-thin" opacity="0.7" />
+          <line x1="104" y1="220" x2="165" y2="220" class="s-thin" opacity="0.7" />
+          <line x1="104" y1="320" x2="165" y2="320" class="s-thin" opacity="0.7" />
+          <line x1="104" y1="420" x2="165" y2="420" class="s-thin" opacity="0.7" />
+          <line x1="104" y1="518" x2="165" y2="518" class="s-thin" opacity="0.7" />
+          <text x="90" y="321" transform="rotate(-90 90 321)" text-anchor="middle" class="s-dim svg-small">12 400</text>
+
+          <!-- bottom dimension -->
+          <line x1="165" y1="566" x2="470" y2="566" class="s-thin" />
+          <line x1="165" y1="530" x2="165" y2="574" class="s-thin" opacity="0.7" />
+          <line x1="470" y1="530" x2="470" y2="574" class="s-thin" opacity="0.7" />
+          <path d="M161 562 169 570M466 562 474 570" class="s-thin" />
+          <text x="317" y="584" text-anchor="middle" class="s-dim svg-small">18 000 · 48 MODULE BAYS</text>
+
+          <!-- scale bar -->
+          <g transform="translate(36 610)" class="svg-small">
+            <rect x="0" y="0" width="30" height="5" fill="#14314f" />
+            <rect x="30" y="0" width="30" height="5" fill="#ffffff" stroke="#14314f" stroke-width="0.6" />
+            <rect x="60" y="0" width="30" height="5" fill="#14314f" />
+            <rect x="90" y="0" width="30" height="5" fill="#ffffff" stroke="#14314f" stroke-width="0.6" />
+            <text x="0" y="14" text-anchor="middle" class="s-dim">0</text>
+            <text x="60" y="14" text-anchor="middle" class="s-dim">5</text>
+            <text x="120" y="14" text-anchor="middle" class="s-dim">10 m</text>
+          </g>
+
+          <!-- drawing title -->
+          <text x="24" y="30" class="s-call svg-small">SECTION A–A</text>
+          <text x="24" y="45" class="s-anno s-tiny svg-small">TYPICAL CODEBASE · FOUR LOAD-BEARING LAYERS · SCALE 1:100</text>
+
+          <!-- revision mark -->
+          <g transform="translate(592 18)">
+            <path d="M22 0 44 34H0Z" fill="none" stroke="#c2410c" stroke-width="1.2" />
+            <text x="22" y="26" text-anchor="middle" fill="#c2410c" font-family="'IBM Plex Mono', monospace" font-size="10">03</text>
+            <text x="52" y="25" class="s-anno" style="fill: #c2410c">REV</text>
+          </g>
+
+          <!-- callouts -->
+          <g class="svg-callout">
+            <circle cx="260" cy="280" r="3.2" fill="#c2410c" />
+            <path d="M260 280H480L510 250H525" class="s-orange" stroke-width="1" />
+            <text x="530" y="244" class="s-call">LOAD-BEARING MODULE</text>
+            <text x="530" y="258" class="s-call-note">core/models.py · 14 deps</text>
+
+            <circle cx="365" cy="329" r="3.2" fill="#c2410c" />
+            <path d="M365 329H480L505 330H525" class="s-orange" stroke-width="1" />
+            <text x="530" y="324" class="s-call">HIDDEN COUPLING</text>
+            <text x="530" y="338" class="s-call-note">billing → auth · direct</text>
+
+            <circle cx="520" cy="462" r="3.2" fill="#c2410c" />
+            <path d="M520 462H536L550 470H560" class="s-orange" stroke-width="1" />
+            <text x="566" y="464" class="s-call">ENTRY POINT</text>
+            <text x="566" y="478" class="s-call-note">routes · main.py</text>
+          </g>
+        </svg>
+      </div>
+      <ul class="drawing-legend">
+        <li><span class="lg-num">01</span><span><span class="lg-name">Entry point</span> — routes first contact</span></li>
+        <li><span class="lg-num">02</span><span><span class="lg-name">Hidden coupling</span> — billing calls auth directly</span></li>
+        <li><span class="lg-num">03</span><span><span class="lg-name">Load-bearing module</span> — the shared core</span></li>
+      </ul>
+      <figcaption class="drawing-caption">
+        <span>Typical codebase · four load-bearing layers</span>
+        <span>Not to scale · drawn from a static census</span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <section class="section" id="survey-index">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Survey index</p>
+        <h2 class="section-title">Six sheets, one reading of the code.</h2>
+      </div>
+      <p class="section-side">A-01–A-06 · Rev 03<br />Issued 28.10.2026</p>
+    </div>
+    <div class="table-frame">
+      <table class="survey-index">
+        <thead>
+          <tr>
+            <th scope="col">Sheet</th>
+            <th scope="col">Title</th>
+            <th scope="col">What it records</th>
+            <th scope="col">Status</th>
+            <th scope="col" style="text-align: right">Rev</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="sheet-cell" data-label="Sheet">A-01</td>
+            <td class="title-cell" data-label="Title"><a href={base || '/'}>Home</a></td>
+            <td data-label="Records">Cover, scope, and the full drawing index.</td>
+            <td class="status-cell" data-label="Status"><span class="status-mark issued"></span>Issued</td>
+            <td class="rev-cell" data-label="Rev">03</td>
+          </tr>
+          <tr>
+            <td class="sheet-cell" data-label="Sheet">A-02</td>
+            <td class="title-cell" data-label="Title"><a href={`${base}/ingest`}>Ingest</a></td>
+            <td data-label="Records">ZIP upload or GitHub clone, consent gate, analyse.</td>
+            <td class="status-cell" data-label="Status"><span class="status-mark"></span>Live</td>
+            <td class="rev-cell" data-label="Rev">03</td>
+          </tr>
+          <tr>
+            <td class="sheet-cell" data-label="Sheet">A-03</td>
+            <td class="title-cell" data-label="Title"><a href={`${base}/report`}>Report</a></td>
+            <td data-label="Records">Pattern match, report document, Mermaid diagram, drift register.</td>
+            <td class="status-cell" data-label="Status"><span class="status-mark"></span>Live</td>
+            <td class="rev-cell" data-label="Rev">03</td>
+          </tr>
+          <tr>
+            <td class="sheet-cell" data-label="Sheet">A-04</td>
+            <td class="title-cell" data-label="Title"><a href={`${base}/explorer`}>Explorer</a></td>
+            <td data-label="Records">File tree, source preview, per-file drift context.</td>
+            <td class="status-cell" data-label="Status"><span class="status-mark"></span>Live</td>
+            <td class="rev-cell" data-label="Rev">03</td>
+          </tr>
+          <tr>
+            <td class="sheet-cell" data-label="Sheet">A-05</td>
+            <td class="title-cell" data-label="Title"><a href={`${base}/ask`}>Ask</a></td>
+            <td data-label="Records">Grounded questions; answers cite file paths and snippets.</td>
+            <td class="status-cell" data-label="Status"><span class="status-mark"></span>Live</td>
+            <td class="rev-cell" data-label="Rev">03</td>
+          </tr>
+          <tr>
+            <td class="sheet-cell" data-label="Sheet">A-06</td>
+            <td class="title-cell" data-label="Title"><a href={`${base}/settings`}>Settings</a></td>
+            <td data-label="Records">Stored codebases and deletion of a local survey.</td>
+            <td class="status-cell" data-label="Status"><span class="status-mark"></span>Live</td>
+            <td class="rev-cell" data-label="Rev">03</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-foot">All sheets read from the local backend on demand · analysis is static · revision 03 issued for survey</p>
+  </section>
+
+  <section class="section" id="specimen">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Field specimen · A-03</p>
+        <h2 class="section-title">A drift register, not a scoreboard.</h2>
+        <p class="lead">
+          The report puts a number on distance from the intended architecture. Every row carries its reason:
+          emergency fixes, complexity, or a boundary crossed.
+        </p>
+      </div>
+      <p class="section-side">Specimen 03<br />Layered service<br />Pattern match 0.74</p>
+    </div>
+    <div class="specimen">
+      <div class="specimen-head">
+        <span>Specimen 03 · <strong>Layered service</strong></span>
+        <span>Drift index · 0.00 clean — 1.00 rebuilt under pressure</span>
+      </div>
+      <dl class="specimen-summary">
+        <div><dt>Pattern match</dt><dd>0.74 · layered</dd></div>
+        <div><dt>Files scored</dt><dd>128 / 128</dd></div>
+        <div><dt>Survey basis</dt><dd>AST census + git log</dd></div>
+      </dl>
+      <div class="specimen-body">
+        <ol class="drift-list">
+          <li class="drift-entry" data-level="high">
+            <div class="drift-line">
+              <span class="drift-path">auth/views.py</span>
+              <span class="drift-score mono-n">0.82</span>
+            </div>
+            <div class="drift-meter"><span style="width: 82%"></span></div>
+            <p class="drift-reason">3 emergency fixes; model → view import crosses the boundary.</p>
+          </li>
+          <li class="drift-entry" data-level="mid">
+            <div class="drift-line">
+              <span class="drift-path">billing/workaround_pay.py</span>
+              <span class="drift-score mono-n">0.55</span>
+            </div>
+            <div class="drift-meter"><span style="width: 55%"></span></div>
+            <p class="drift-reason">Hotfix keyword in the filename; cyclomatic complexity 12.</p>
+          </li>
+          <li class="drift-entry" data-level="low">
+            <div class="drift-line">
+              <span class="drift-path">core/models.py</span>
+              <span class="drift-score mono-n">0.08</span>
+            </div>
+            <div class="drift-meter"><span style="width: 8%"></span></div>
+            <p class="drift-reason">Clean; imports still resolve downward through the layers.</p>
+          </li>
+        </ol>
+      </div>
+      <div class="specimen-foot">
+        <span>Drift = 0.40 × emergency rate + 0.35 × complexity/20 + 0.25 × boundary violations</span>
+        <span>Sample data · not a real repository</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="method">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Method notes</p>
+        <h2 class="section-title">What gets measured. What stays an estimate.</h2>
+      </div>
+      <p class="section-side">Static only<br />No code executed</p>
+    </div>
+    <div class="method-grid">
+      <div class="method-list">
+        <article class="method-item">
+          <span class="method-num">01</span>
+          <div>
+            <h3>Read the census</h3>
+            <p>Every source file is parsed; imports, exports and language are recorded. Nothing runs, and no secrets are sent.</p>
+          </div>
+        </article>
+        <article class="method-item">
+          <span class="method-num">02</span>
+          <div>
+            <h3>Trace the strata</h3>
+            <p>Git history is scanned for emergency language — hotfix, workaround, temporary — and unusually dense change.</p>
+          </div>
+        </article>
+        <article class="method-item">
+          <span class="method-num">03</span>
+          <div>
+            <h3>Name the pattern</h3>
+            <p>Layered, hexagonal, event-driven or mixed. The guess ships with the evidence that produced it, not just a label.</p>
+          </div>
+        </article>
+        <article class="method-item">
+          <span class="method-num">04</span>
+          <div>
+            <h3>Answer with receipts</h3>
+            <p>Questions retrieve from the indexed files; every answer lists the paths and snippets behind it.</p>
+          </div>
+        </article>
+      </div>
+      <aside class="legend-panel">
+        <p class="legend-head">Legend / reading the sheet</p>
+        <h3>How to read a mark</h3>
+        <p class="legend-deck">The drawing separates what the census saw from what the surveyor inferred.</p>
+        <ul class="legend-list">
+          <li><span class="legend-symbol solid"></span><span><strong>Solid rule</strong> — confirmed by the AST census.</span></li>
+          <li><span class="legend-symbol dashed"></span><span><strong>Dashed rule</strong> — inferred; a hypothesis to test.</span></li>
+          <li><span class="legend-symbol mark"></span><span><strong>Orange mark</strong> — needs a human look.</span></li>
+          <li><span class="legend-symbol dotted"></span><span><strong>Drift 0.00–1.00</strong> — distance from the intended structure.</span></li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div class="note-band">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <path d="M12 8v5M12 16h.01" />
+      </svg>
+      <p>
+        <strong>Site notice.</strong> Only upload code you own or are authorised to share. Analysis is static;
+        drift scores are estimates, not ground truth.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="cta-band reveal">
+      <div>
+        <p class="eyebrow">Issue a survey</p>
+        <h2 class="section-title">Every codebase has strata.</h2>
+        <p class="lead">
+          Start with a ZIP or a repository URL. The report will show where the plan and the code stopped agreeing.
+        </p>
+      </div>
+      <a href={`${base}/ingest`} class="btn btn-accent btn-lg">Ingest code</a>
+    </div>
+  </section>
 </BaseLayout>

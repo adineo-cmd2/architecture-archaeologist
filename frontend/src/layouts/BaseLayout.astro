@@ -15,7 +15,23 @@ const {
 
 const site = Astro.site ?? new URL('https://adineo-cmd2.github.io');
 const canonical = new URL(Astro.url.pathname, site);
-const fullTitle = `${title} · Architecture Archaeologist`;
+const fullTitle = title.includes('Architecture Archaeologist')
+  ? title
+  : `${title} · Architecture Archaeologist`;
+
+const base = (import.meta.env.BASE_URL ?? '/').replace(/\/$/, '');
+const path = Astro.url.pathname.replace(base, '').replace(/\/+$/, '') || '/';
+
+const sheets: Record<string, { code: string; name: string }> = {
+  '/': { code: 'A-01', name: 'Survey index' },
+  '/ingest': { code: 'A-02', name: 'Intake' },
+  '/report': { code: 'A-03', name: 'Report' },
+  '/explorer': { code: 'A-04', name: 'Explorer' },
+  '/ask': { code: 'A-05', name: 'Query' },
+  '/settings': { code: 'A-06', name: 'Register' },
+};
+const sheet = sheets[path] ?? { code: 'A-00', name: 'Unfiled sheet' };
+const isHome = path === '/';
 ---
 <!doctype html>
 <html lang="en">
@@ -25,8 +41,11 @@ const fullTitle = `${title} · Architecture Archaeologist`;
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20100%20100%27%3E%3Crect%20width%3D%27100%27%20height%3D%27100%27%20rx%3D%2722%27%20fill%3D%27%2309090b%27%2F%3E%3Ctext%20x%3D%2750%27%20y%3D%2758%27%20font-size%3D%2752%27%20text-anchor%3D%27middle%27%20dominant-baseline%3D%27middle%27%3E%E2%9B%8F%EF%B8%8F%3C%2Ftext%3E%3C%2Fsvg%3E" />
-    <meta name="theme-color" content="#09090b" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Crect%20width='100'%20height='100'%20fill='%23f4f7fa'/%3E%3Crect%20x='8'%20y='8'%20width='84'%20height='84'%20fill='none'%20stroke='%2314314f'%20stroke-width='3'/%3E%3Cpath%20d='M25%2071%20L50%2027%20L75%2071%20Z'%20fill='none'%20stroke='%23c2410c'%20stroke-width='5'/%3E%3Cpath%20d='M23%2071H77'%20stroke='%2314314f'%20stroke-width='3'/%3E%3C/svg%3E"
+    />
+    <meta name="theme-color" content="#f4f7fa" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Architecture Archaeologist" />
     <meta property="og:title" content={fullTitle} />
@@ -35,39 +54,36 @@ const fullTitle = `${title} · Architecture Archaeologist`;
     <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:ital,wght@0,400..700;1,400..600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body class="min-h-screen">
+    <div class="sheet-frame" aria-hidden="true">
+      <span class="frame-tick tick-tl"></span>
+      <span class="frame-tick tick-tr"></span>
+      <span class="frame-tick tick-bl"></span>
+      <span class="frame-tick tick-br"></span>
+      <span class="frame-ref">Survey set A · Architecture Archaeologist · Rev 03</span>
+    </div>
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[var(--accent)] focus:px-4 focus:py-2 focus:text-[var(--accent-ink)]"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:border focus:border-[var(--ink)] focus:bg-[var(--accent)] focus:px-4 focus:py-2 focus:text-[var(--accent-ink)]"
     >
       Skip to content
     </a>
     <Nav />
     <main id="main" class="page-wrap">
+      {!isHome && (
+        <div class="sheet-meta">
+          <span class="sheet-meta-code">Sheet {sheet.code} / 06</span>
+          <span>{sheet.name}</span>
+          <span class="sheet-meta-right">Scale NTS · Rev 03 · Issued for survey</span>
+        </div>
+      )}
       <slot />
     </main>
     <Footer />
-    <script>
-      // Scroll-reveal: fade sections in as they enter the viewport.
-      const els = document.querySelectorAll('.reveal');
-      if ('IntersectionObserver' in window) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const e of entries) {
-              if (e.isIntersecting) {
-                e.target.classList.add('in');
-                io.unobserve(e.target);
-              }
-            }
-          },
-          { threshold: 0.08 },
-        );
-        els.forEach((el) => io.observe(el));
-      } else {
-        els.forEach((el) => el.classList.add('in'));
-      }
-    </script>
   </body>
 </html>

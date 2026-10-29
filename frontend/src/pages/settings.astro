@@ -3,29 +3,41 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 <BaseLayout title="Settings — Architecture Archaeologist">
 <h1 class="page-title">Settings</h1>
-<div class="border border-edge bg-panel p-4">
-  <h2 class="text-sm font-bold text-archgreen">Codebases</h2>
-  <ul id="list" class="mt-2 space-y-2 text-sm"></ul>
-  <p id="err" class="mt-2 text-sm text-archamber"></p>
+<div class="sheet-panel">
+  <div class="sheet-panel-head">
+    <span class="panel-code">Sheet A-06 — Register</span>
+    <span>Stored codebases · local backend</span>
+  </div>
+  <div class="sheet-panel-body">
+    <div class="register-head">
+      <h2>Codebases</h2>
+      <span>Delete removes the local survey</span>
+    </div>
+    <ul id="list" class="register-list"></ul>
+    <p id="err" class="form-note error"></p>
+  </div>
 </div>
 <script>
   import { apiGet, apiDelete } from '../lib/apiClient';
   async function load() {
     const list = document.getElementById("list")!;
     const err = document.getElementById("err")!;
-    list.innerHTML = "<li>Loading…</li>";
+    err.textContent = "";
+    list.innerHTML = '<li class="register-empty">Loading…</li>';
     try {
       const items = await apiGet("/api/codebase");
       list.innerHTML = "";
-      if (items.length === 0) list.innerHTML = "<li>No codebases yet.</li>";
+      if (items.length === 0) list.innerHTML = '<li class="register-empty">No codebases yet.</li>';
       for (const c of items) {
         const li = document.createElement("li");
-        li.className = "flex items-center justify-between gap-3 border border-edge bg-ink px-3 py-2";
+        li.className = "register-row";
         const span = document.createElement("span");
+        span.className = "reg-name";
         span.textContent = `#${c.id} ${c.name} (${c.source}, ${c.files} files)`;
         const del = document.createElement("button");
+        del.type = "button";
         del.textContent = "Delete";
-        del.className = "border border-archamber px-2 py-0.5 text-archamber";
+        del.className = "btn btn-sm danger";
         del.onclick = async () => {
           try {
             await apiDelete(`/api/codebase/${c.id}`);
@@ -38,6 +50,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         list.appendChild(li);
       }
     } catch (e) {
+      list.innerHTML = "";
       err.textContent = e instanceof Error ? e.message : "Load failed.";
     }
   }
